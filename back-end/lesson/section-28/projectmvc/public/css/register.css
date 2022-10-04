@@ -1,0 +1,53 @@
+body{
+    background-color:#1c6053;
+}
+#heading-content{
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    font-size: 2.2rem;
+}
+#wrap-form-login{
+    width: 27rem;
+    margin: 6rem auto;
+    background-color: #fff;
+    padding:4rem 2rem 3rem;
+    border-radius: 0.5rem;
+}
+#form-login{
+    text-align: center;
+}
+#form-login .error-text{
+    color: red;
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+
+}
+#username, #password, #fullname, #email{
+    display: block;
+    width: 100%;
+    padding: 1.3rem;
+    background-color: #7a857938;
+    border: none;
+}
+#username::placeholder, #password::placeholder, #fullname::placeholder, #email::placeholder{
+    text-align: center;
+}
+input[type="submit"]{
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #1c6053;
+    border: none;
+    color: #fff;
+    margin-bottom: 0.8rem;
+}
+input[type="submit"]:hover{
+    cursor: pointer;
+}
+.lost-pass{
+    display:block;
+    text-align: center;
+    color:#68725c
+
+}

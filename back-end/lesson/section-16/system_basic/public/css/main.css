@@ -1,0 +1,79 @@
+body{
+    background-color: #fff;
+}
+#wrapper{
+    width: 96rem;
+    min-height: 60rem;
+    margin: 0 auto;
+    background-color: #eee;
+}
+#header{
+    height: 8rem;
+    /*padding: 1rem;*/
+    text-align: center;
+    color: #fff;
+    font-size: 2rem;
+    /*display: flex;*/
+    /*justify-content:center;*/
+    position: relative;
+}
+#logo{
+    padding-top: 2rem;
+    display: inline-block;
+    font-size: 3rem;
+    text-decoration: none;
+    color: #000;
+    font-weight: bold
+}
+#user-login{
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+}
+#user-login p{
+    color: #222;
+    font-size: 1.8rem;
+}
+#user-login p > a{
+    text-decoration: none;
+}
+.header-content{
+    font-weight: 400;
+}
+.header-list{
+    padding: 0;
+    margin: 3rem 0 0 0;
+    /*display: flex;*/
+    list-style-type: none;
+    /*justify-content: space-around;*/
+    align-items: center;
+    background-color: #1c6053;
+}
+.header-list li{
+    display: inline-block;
+}
+.header-list li a{
+    display: block;
+    padding: 2rem;
+    text-decoration:none;
+    color: #fff;
+}
+#content{
+    padding: 2rem;
+    text-align: center;
+    min-height: 50rem;
+}
+#content .heading-content{
+    margin: 7rem 0 2rem;
+    font-weight: 400;
+
+}
+#footer{
+    height: 3rem;
+    padding: 1rem;
+    background-color: #1c6053;
+    color: #fff;
+    text-align: center;
+}
+
+
