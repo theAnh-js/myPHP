@@ -14,9 +14,9 @@
                 <input type="password" name="password" placeholder="Password" id="password"/>
                 <p class="error-text"><?php echo show_error("password"); ?></p>
 
-                <input type="checkbox" name="remember_me" value="yes"/>Ghi nhớ đăng nhập.
+                <!--<input type="checkbox" name="remember_me" value="yes"/>Ghi nhớ đăng nhập.-->
                 <input type="submit" name="btn-login" value="Đăng nhập" />
-                <p class="error-text"><?php show_error("login-failure"); ?></p>
+                <p class="error-text"><?php echo show_error("login-failure"); ?></p>
             </form>
             <a class="lost-pass" href="<?php echo base_url("?mod=users&action=lostPass") ?>">Quên mật khẩu?</a>
             <a class="lost-pass" href="<?php echo base_url("?mod=users&action=register") ?>">Đăng ký</a>
