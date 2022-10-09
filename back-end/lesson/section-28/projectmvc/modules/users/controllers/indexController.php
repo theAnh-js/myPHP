@@ -81,7 +81,7 @@ function registerAction() {
                         . "<p>Bạn vui lòng click vào {$link_active} để kích hoạt tài khoản </p>"
                         . "<p>Nếu không phải bạn vui lòng bỏ qua email này.</p>";
                 send_mail('khanhta99887@gmail.com', 'anh the', 'you are ready', $content);
-//                redirect("?mod=users&action=login");
+//                redirect("?mod=users&action=login"); 
             } else {
                 $error_list["account"] = "Tên đăng nhập hoặc email đã tồn tại";
             }
@@ -121,18 +121,17 @@ function loginAction() {
             $password = md5($_POST["password"]);
         }
         if (empty($error_list)) {
-                if (check_login($username, $password)) {
-                    #thiết lập session (việc start session thì làm ở trang index rổi.)
+            if (check_login($username, $password)) {
+                #thiết lập session (việc start session thì làm ở trang index rổi.)
 //                    ob_start();
 //                    session_start();
-                    $_SESSION["is_login"] = true;
-                    $_SESSION["user_login"] = $username;
+                $_SESSION["is_login"] = true;
+                $_SESSION["user_login"] = $username;
 
-                    redirect();
-                } else {
-                    $error_list["login-failure"] = "<strong>Tên đăng nhập hoặc Mật khẩu chưa chính xác</strong>";
-                }
-            
+                redirect();
+            } else {
+                $error_list["login-failure"] = "<strong>Tên đăng nhập hoặc Mật khẩu chưa chính xác</strong>";
+            } 
         }
     }
     load_view("login");
@@ -149,9 +148,75 @@ function activeAction() {
     }
 }
 
-function logoutAction(){
+function logoutAction() {
     unset($_SESSION["user_login"]);
     unset($_SESSION["is_login"]);
-    
+
     redirect("?mod=users&action=login");
+}
+
+function resetAction() {
+    global $email, $error_list, $password;
+    $reset_token = $_GET["reset_token"];
+    if (!empty($reset_token)) {
+        if (check_reset_token($reset_token)) {
+            if (isset($_POST["btn-newPass"])) {
+                if (empty($_POST["password"])) {
+                    $error_list["password"] = "Vui lòng nhập mật khẩu của bạn.";
+                } else {
+                    $password = $_POST["password"];
+                    $partten_password = " /^([A-Z]){1}([\w_\.!@#$%^&*()]+){5,31}$/";
+                    $isValid_password = preg_match($partten_password, $password);
+                    if (!$isValid_password) {
+                        $error_list["password"] = "Mật khẩu chưa hợp lệ,...";
+                    }
+                    $password = md5($_POST["password"]);
+                }
+            }
+            if(empty($error_list)){
+                $data = array(
+                    'password' => $password
+                );
+                update_pass($data, $reset_token);
+                redirect("?mod=users&action=resetSuccess");
+            }
+            load_view("newPass");
+        } else {
+            echo "Yêu cầu lấy lại mật khẩu không hợp lệ";
+        }
+    } else {
+        if (isset($_POST["btn-reset"])) {
+            if (empty($_POST["email"])) {
+                $error_list["email"] = "Vui lòng nhập email của bạn";
+            } else {
+                $email = $_POST["email"];
+                $partten_email = "/^[A-Za-z0-9_.]{6,32}@([a-zA-Z0-9]{2,12})(.[a-zA-Z]{2,12})+$/";
+                $isValid_email = preg_match($partten_email, $email);
+                if (!$isValid_email) {
+                    $error_list["email"] = "Email không đúng định dạng";
+                }
+            }
+            if (empty($error_list)) {
+                if (check_email($email)) {
+                    $reset_token = md5($email . time());
+                    $data = array(
+                        "reset_token" => $reset_token,
+                    );
+                    //Cập nhật reset_token cho user cần khôi phục password.
+                    update_reset_token($data, $email);
+                    //Gửi link khôi phục cho user đó.
+                    $link = base_url("?mod=users&action=reset&reset_token='{$reset_token}'");
+                    $content = "<p>Bạn vui lòng click vào link sau để khôi phục mật khẩu: {$link}</p>" .
+                            "<p>Nếu không phải bạn, vui lòng bỏ qua email này.</p>";
+                    send_mail($email, '', 'Khôi phục mật khẩu của bạn.', $content);
+                } else {
+                    $error_list["email-error"] = "Địa chỉ email không tồn tại.";
+                }
+            }
+        }
+        load_view("reset");
+    }
+}
+function resetSuccessAction(){
+    load_view('resetSuccess');
 }

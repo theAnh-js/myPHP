@@ -18,7 +18,7 @@
                 <input type="submit" name="btn-login" value="Đăng nhập" />
                 <p class="error-text"><?php echo show_error("login-failure"); ?></p>
             </form>
-            <a class="lost-pass" href="<?php echo base_url("?mod=users&action=lostPass") ?>">Quên mật khẩu?</a>
+            <a class="lost-pass" href="<?php echo base_url("?mod=users&action=reset") ?>">Quên mật khẩu?</a>
             <a class="lost-pass" href="<?php echo base_url("?mod=users&action=register") ?>">Đăng ký</a>
         </div>
 
